@@ -4,6 +4,19 @@
     "parameters": {},
     "functions": [],
     "variables": {},
-    "resources": [],
+    "resources": [{
+        "name": "storageaccountexample", //unique resource name
+        "type": "Microsoft.Storage/storageAccounts",
+        "apiVersion": "2021-04-01",
+        "tags": {
+            "displayName": "storageaccountexample"
+        },
+        "location": "[resourceGroup().location]", //sets the location of the resource group where it will be deployed
+        "kind": "StorageV2",
+        "sku": {
+            "name": "Standard_LRS",
+            "tier": "Standard"
+        }
+    }],
     "outputs": {}
 }
