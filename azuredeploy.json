@@ -1,15 +1,24 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
+    "parameters": { // an optional section where you define values that are provided during deployment
+        "storageName": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 24,
+            "metadata": {
+                "description": "The name of the Azure storage resource"
+            }
+        }
+    },
     "functions": [],
     "variables": {},
-    "resources": [{
-        "name": "storageaccountexample", //unique resource name
+    "resources": [{ // defines the actual items we want to deploy or update in a resource group or a subscription.
+        "name": "[parameters('storageName')]", //unique resource name
         "type": "Microsoft.Storage/storageAccounts",
         "apiVersion": "2021-04-01",
         "tags": {
-            "displayName": "storageaccountexample"
+            "displayName": "[parameters('storageName')]"
         },
         "location": "[resourceGroup().location]", //sets the location of the resource group where it will be deployed
         "kind": "StorageV2",
@@ -19,4 +28,4 @@
         }
     }],
     "outputs": {}
-}
+}9
