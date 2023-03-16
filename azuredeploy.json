@@ -9,12 +9,26 @@
             "metadata": {
                 "description": "The name of the Azure storage resource"
             }
+        },
+        "storageSKU": {
+            "type": "string",
+            "defaultValue": "Standard_LRS",
+            "allowedValues": [
+                "Standard_LRS",
+                "Standard_GRS",
+                "Standard_RAGRS",
+                "Standard_ZRS",
+                "Premium_LRS",
+                "Premium_ZRS",
+                "Standard_GZRS",
+                "Standard_RAGZRS"
+            ]
         }
     },
     "functions": [],
     "variables": {},
     "resources": [{ // defines the actual items we want to deploy or update in a resource group or a subscription.
-        "name": "[parameters('storageName')]", //unique resource name
+        "name": "[parameters('storageName')]", // gets the value from deploy command
         "type": "Microsoft.Storage/storageAccounts",
         "apiVersion": "2021-04-01",
         "tags": {
@@ -23,9 +37,9 @@
         "location": "[resourceGroup().location]", //sets the location of the resource group where it will be deployed
         "kind": "StorageV2",
         "sku": {
-            "name": "Standard_LRS",
+            "name": "[parameters('storageSKU')]", // gets the value from deploy command
             "tier": "Standard"
         }
     }],
     "outputs": {}
-}9
+}
