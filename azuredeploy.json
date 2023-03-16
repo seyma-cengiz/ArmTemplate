@@ -28,18 +28,23 @@
     "functions": [],
     "variables": {},
     "resources": [{ // defines the actual items we want to deploy or update in a resource group or a subscription.
-        "name": "[parameters('storageName')]", // gets the value from deploy command
+        "name": "[parameters('storageName')]", // gets the value from deployment command
         "type": "Microsoft.Storage/storageAccounts",
         "apiVersion": "2021-04-01",
         "tags": {
-            "displayName": "[parameters('storageName')]"
+            "displayName": "[parameters('storageName')]" // gets the value from deployment command
         },
         "location": "[resourceGroup().location]", //sets the location of the resource group where it will be deployed
         "kind": "StorageV2",
         "sku": {
-            "name": "[parameters('storageSKU')]", // gets the value from deploy command
+            "name": "[parameters('storageSKU')]", // gets the value from deployment command
             "tier": "Standard"
         }
     }],
-    "outputs": {}
+    "outputs": { // an optional section where you specify the values that will be returned at the end of the deployment
+        "storageEndpoint": {
+            "type": "object",
+            "value": "[reference(parameters('storageName')).primaryEndpoints]"
+        }
+    }
 }
